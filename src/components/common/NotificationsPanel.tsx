@@ -46,20 +46,28 @@ export function NotificationsPanel({ open, onClose, triggerRef }: { open: boolea
           <Button size="icon" variant="ghost" onClick={onClose} className="h-8 w-8 rounded-full"><X className="h-4 w-4"/></Button>
         </CardHeader>
         <Separator />
-        <ScrollArea className="h-80">
+        <ScrollArea className="max-h-80">
           <CardContent className="p-0">
-            {notifications.map((n, i) => (
-              <div key={i} className={`flex items-start gap-3 p-4 hover:bg-slate-50 ${!n.read ? 'bg-slate-50' : ''}`}>
-                <div className={`mt-1 flex h-8 w-8 items-center justify-center rounded-full ${!n.read ? 'bg-white' : 'bg-slate-100'}`}>
-                  {n.icon}
+            {notifications.length > 0 ? (
+              notifications.map((n, i) => (
+                <div key={i} className={`flex items-start gap-3 p-4 hover:bg-slate-50 ${!n.read ? "bg-slate-50" : ""}`}>
+                  <div className={`mt-1 flex h-8 w-8 items-center justify-center rounded-full ${!n.read ? "bg-white" : "bg-slate-100"}`}>
+                    {n.icon}
+                  </div>
+                  <div className="flex-1">
+                    <p className="text-sm font-medium text-slate-800">{n.title}</p>
+                    <p className="text-xs text-slate-500">{n.time}</p>
+                  </div>
+                  {!n.read && (
+                    <button onClick={() => handleMarkAsRead(i)} className="mt-1 text-xs text-blue-600 hover:underline">
+                      Mark read
+                    </button>
+                  )}
                 </div>
-                <div className="flex-1">
-                  <p className="text-sm font-medium text-slate-800">{n.title}</p>
-                  <p className="text-xs text-slate-500">{n.time}</p>
-                </div>
-                {!n.read && <button onClick={() => handleMarkAsRead(i)} className="mt-1 text-xs text-blue-600 hover:underline">Mark read</button>}
-              </div>
-            ))}
+              ))
+            ) : (
+              <div className="p-4 text-center text-sm text-slate-500">You have no new notifications.</div>
+            )}
           </CardContent>
         </ScrollArea>
         <Separator />

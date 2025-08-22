@@ -162,7 +162,7 @@ function Hero() {
           </p>
           <div className="mt-8 flex flex-col items-center gap-3 sm:flex-row sm:justify-center">
             <Button onClick={() => navigate("/login")} className="h-11 rounded-xl bg-[#F5B700] px-6 text-[#0A2647] hover:bg-[#e5aa00]" aria-label="Get started with Virtual Office UK">Get Started</Button>
-            <Button variant="outline" className="h-11 rounded-xl border-white bg-white/10 px-6 text-white hover:bg-white/20" aria-label="Book a free consultation">Book Free Consultation</Button>
+            <Button variant="outline" onClick={() => navigate("/login")} className="h-11 rounded-xl border-white bg-white/10 px-6 text-white hover:bg-white/20" aria-label="Book a free consultation">Book Free Consultation</Button>
           </div>
           <div className="mt-6 flex items-center justify-center gap-3 text-sm text-slate-200">
             <Shield className="h-4 w-4" />
