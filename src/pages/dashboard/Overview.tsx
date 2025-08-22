@@ -23,36 +23,6 @@ const tDict = {
 
 type Lang = keyof typeof tDict;
 
-// --- Feature: Promotions banner prominently ---
-function PromoBanner() {
-  return (
-    <motion.div
-      initial={{ opacity: 0, y: 12 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.5 }}
-      className="relative overflow-hidden rounded-2xl border bg-gradient-to-r from-[#0A2647] to-[#0b305f] p-5 text-white shadow-sm"
-      aria-label="Promotions"
-    >
-      <div className="flex flex-col gap-3 md:flex-row md:items-center md:justify-between">
-        <div className="flex items-start gap-3">
-          <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-white/10">
-            <Gift className="h-5 w-5 text-[#F5B700]" />
-          </div>
-          <div>
-            <h3 className="text-lg font-semibold">Summer Offer: 2 months free</h3>
-            <p className="text-sm text-white/90">Sign up for the Business plan yearly and get 2 months free + free mail scanning.</p>
-          </div>
-        </div>
-        <div className="flex gap-2">
-          <Button className="rounded-xl bg-[#F5B700] text-[#0A2647] hover:bg-[#e5aa00]">Claim Offer</Button>
-          <Button variant="outline" className="rounded-xl border-white bg-white/10 text-white hover:bg-white/20">See all promos</Button>
-        </div>
-      </div>
-      <div className="pointer-events-none absolute -right-8 -top-8 h-40 w-40 rounded-full bg-[#F5B700]/20 blur-2xl" />
-    </motion.div>
-  );
-}
-
 // --- Overview widgets ---
 function StatCard({ title, value, sub }: { title: string; value: string; sub: string }) {
   return (
