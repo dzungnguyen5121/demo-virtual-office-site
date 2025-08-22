@@ -43,18 +43,12 @@ export function Header({ title }: { title: string }) {
     <>
       <header className="sticky top-0 z-30 border-b bg-white/90 backdrop-blur">
         <div className="mx-auto flex max-w-7xl items-center justify-between px-4 py-3 sm:px-6 lg:px-8">
-          <div className="flex items-center gap-2 lg:hidden">
-            <div className="flex h-9 w-9 items-center justify-center rounded-xl" style={{ background: BRAND.primary }}>
-              <Building2 className="h-5 w-5 text-white" />
-            </div>
-            <span className="text-base font-semibold text-slate-900">{title}</span>
-          </div>
-          <div className="hidden items-center gap-2 lg:flex">
-            <span className="text-lg font-semibold text-slate-900">{title}</span>
-            {title === "Overview" && <Badge className="rounded-full bg-[#F5B700] text-[#0A2647]">Promo</Badge>}
+          <div className="flex items-center gap-2">
+            <h1 className="text-xl font-bold text-slate-900">{title}</h1>
           </div>
 
-          <div className="flex items-center gap-8">
+          {/* --- User menu / right side --- */}
+          <div className="flex items-center gap-4">
             <div className="relative">
               <button
                 ref={notifButtonRef}

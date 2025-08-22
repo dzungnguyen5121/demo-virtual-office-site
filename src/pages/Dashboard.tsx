@@ -123,10 +123,8 @@ export default function Dashboard({ children }: { children?: React.ReactNode }) 
           <Header title={title} />
 
           {/* Main content */}
-          <main className="flex-1 px-4 py-6 sm:px-6 lg:px-8">
-            <div className="mx-auto w-full max-w-7xl">
-              {children || <Outlet />}
-            </div>
+          <main className="mx-auto w-full max-w-7xl flex-1 px-4 py-6 sm:px-6 lg:px-8">
+            {children || <Outlet />}
           </main>
           
           <Footer />
