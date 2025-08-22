@@ -5,7 +5,7 @@ import { Header } from "../components/common/Header";
 import { Footer } from "../components/common/Footer";
 
 export default function ProfilePage() {
-  const user = { name: "Nguyễn Văn A", email: "nguyenvana@company.com", company: "Công ty ABC", dob: "1990-01-15", phone: "+44 20 7123 4567" };
+  const user = { name: "John Doe", email: "JohnDoe@company.com", company: "ABC Company", dob: "1990-01-15", phone: "+44 20 7123 4567" };
 
   return (
     <div className="flex min-h-screen flex-col bg-[#F5F6FA] font-sans">
