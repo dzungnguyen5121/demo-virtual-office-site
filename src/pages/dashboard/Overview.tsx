@@ -1,3 +1,4 @@
+import { useMemo, useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import {
   Gift,
@@ -11,6 +12,24 @@ import {
 import { Button } from "../../components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "../../components/ui/card";
 import { Badge } from "../../components/ui/badge";
+
+// Minimal i18n for this component
+const tDict = {
+  en: {
+    overview: "Overview",
+    promotions: "Promotions",
+    claimNow: "Claim Now",
+    offer: (n:number)=>`Special Offer ${n}`,
+  },
+  vi: {
+    overview: "Tổng quan",
+    promotions: "Chương trình khuyến mại",
+    claimNow: "Nhận ưu đãi",
+    offer: (n:number)=>`Ưu đãi đặc biệt ${n}`,
+  },
+};
+
+type Lang = keyof typeof tDict;
 
 // --- Feature: Promotions banner prominently ---
 function PromoBanner() {
@@ -57,70 +76,59 @@ function StatCard({ title, value, sub }: { title: string; value: string; sub: st
   );
 }
 
-export function Overview() {
+function StatsSection({ t }: { t: any }) {
   return (
-    <div className="grid gap-6">
-      <PromoBanner />
+    <section>
+      <h2 className="mb-4 text-lg font-semibold text-slate-900">{t.overview}</h2>
       <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
         <StatCard title="New mail" value="6" sub="in the last 7 days" />
         <StatCard title="Calls answered" value="42" sub="this month" />
         <StatCard title="Documents" value="128" sub="stored securely" />
         <StatCard title="Plan" value="Business" sub="renews in 22 days" />
       </div>
+    </section>
+  );
+}
 
-      <div className="grid gap-6 lg:grid-cols-2">
-        {/* Recent calls */}
-        <Card className="rounded-2xl border-0 bg-white shadow-sm ring-1 ring-slate-100">
-          <CardHeader>
-            <CardTitle className="flex items-center justify-between text-lg">Recent Calls <Badge variant="outline" className="rounded-full">5 new</Badge></CardTitle>
-          </CardHeader>
-          <CardContent>
-            <div className="space-y-3">
-              {["Acme Ltd.", "HMRC", "Client - Sarah", "Supplier - King Print", "Unknown"].map((name, i) => (
-                <div key={i} className="flex items-center justify-between rounded-xl border px-3 py-2">
-                  <div className="flex items-center gap-3">
-                    <Phone className="h-4 w-4 text-[#00A896]" />
-                    <div>
-                      <p className="text-sm font-medium text-slate-900">{name}</p>
-                      <p className="text-xs text-slate-500">Duration {Math.floor(Math.random() * 7) + 1}m · 12:{30 + i} PM</p>
-          </div>
-        </div>
-                  <div className="flex gap-2">
-                    <Button size="sm" variant="outline" className="rounded-xl">Details</Button>
-                    <Button size="sm" className="rounded-xl bg-[#0A2647] text-white hover:bg-[#0b305f]">Call back</Button>
-            </div>
-          </div>
-              ))}
-                </div>
-          </CardContent>
-        </Card>
+function PromotionsSection({ t }: { t: any }) {
+  return (
+    <section>
+      <h2 className="mb-4 text-lg font-semibold text-slate-900">{t.promotions}</h2>
+      <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+        {[1, 2, 3].map((p) => (
+          <Card key={p} className="rounded-2xl border-0 shadow-sm ring-1 ring-slate-100">
+            <CardHeader className="flex flex-row items-center gap-2">
+              <Gift className="h-5 w-5 text-[#F5B700]" />
+              <CardTitle className="text-base font-semibold">{t.offer(p)}</CardTitle>
+            </CardHeader>
+            <CardContent>
+              <p className="text-sm text-slate-600">Exclusive discount for your subscription plan. Don’t miss out!</p>
+              <Button className="mt-4 rounded-xl bg-[#F5B700] text-[#0A2647] hover:bg-[#e5aa00]">{t.claimNow}</Button>
+            </CardContent>
+          </Card>
+        ))}
+      </div>
+    </section>
+  );
+}
 
-        {/* Quick documents */}
-        <Card className="rounded-2xl border-0 bg-white shadow-sm ring-1 ring-slate-100">
-          <CardHeader>
-            <CardTitle className="flex items-center justify-between text-lg">Recent Documents
-              <div className="flex items-center gap-2">
-                <Button size="sm" variant="outline" className="rounded-xl"><Upload className="mr-2 h-4 w-4"/>Upload</Button>
-                <Button size="sm" className="rounded-xl bg-[#F5B700] text-[#0A2647] hover:bg-[#e5aa00]"><Plus className="mr-2 h-4 w-4"/>New</Button>
-            </div>
-            </CardTitle>
-          </CardHeader>
-          <CardContent>
-            <div className="divide-y rounded-xl border">
-              {["Letter_HMRC.pdf", "Invoice_9821.pdf", "Contract_Template.docx"].map((d) => (
-                <div key={d} className="flex items-center justify-between px-3 py-2">
-                  <div className="truncate text-sm text-slate-800">{d}</div>
-                  <div className="flex items-center gap-2">
-                    <Button size="sm" variant="outline" className="rounded-xl"><Download className="h-4 w-4"/></Button>
-                    <Button size="sm" variant="outline" className="rounded-xl"><ExternalLink className="h-4 w-4"/></Button>
-                    <Button size="sm" variant="outline" className="rounded-xl text-red-600 hover:text-red-700"><Trash2 className="h-4 w-4"/></Button>
-                </div>
-                </div>
-              ))}
-                </div>
-          </CardContent>
-        </Card>
-            </div>
-          </div>
+export function Overview() {
+  const [lang, setLang] = useState<Lang>(() => (localStorage.getItem("vo_lang") as Lang) || "en");
+  const t = useMemo(() => tDict[lang], [lang]);
+
+  useEffect(() => {
+    const handleLangChange = () => {
+      setLang((localStorage.getItem("vo_lang") as Lang) || "en");
+    };
+    window.addEventListener('storage', handleLangChange);
+    return () => window.removeEventListener('storage', handleLangChange);
+  }, []);
+
+
+  return (
+    <div className="grid gap-6">
+      <StatsSection t={t} />
+      <PromotionsSection t={t} />
+    </div>
   );
 }

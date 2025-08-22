@@ -107,10 +107,11 @@ const pageTitles: { [key: string]: string } = {
   "/dashboard/calls": "Manage Calls",
   "/dashboard/docs": "Manage Documents",
   "/dashboard/settings": "Settings",
+  "/profile": "Profile",
 };
 
 
-export default function Dashboard() {
+export default function Dashboard({ children }: { children?: React.ReactNode }) {
   const location = useLocation();
 
   const title = pageTitles[location.pathname] || "Dashboard";
@@ -124,7 +125,7 @@ export default function Dashboard() {
           {/* Main content */}
           <main className="flex-1 px-4 py-6 sm:px-6 lg:px-8">
             <div className="mx-auto w-full max-w-7xl">
-              <Outlet />
+              {children || <Outlet />}
             </div>
           </main>
           

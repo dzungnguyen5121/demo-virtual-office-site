@@ -15,12 +15,23 @@ const initialNotifications = [
 export function NotificationsPanel({ open, onClose, triggerRef }: { open: boolean; onClose: () => void; triggerRef: RefObject<HTMLButtonElement> }) {
   const containerRef = useRef<HTMLDivElement>(null);
   const [notifications, setNotifications] = useState(initialNotifications);
+  const [position, setPosition] = useState({ top: 0, right: 0 });
 
   const handleMarkAsRead = (index: number) => {
     const newNotifications = [...notifications];
     newNotifications[index].read = true;
     setNotifications(newNotifications);
   };
+
+  useEffect(() => {
+    if (open && triggerRef.current) {
+      const rect = triggerRef.current.getBoundingClientRect();
+      setPosition({
+        top: rect.bottom + window.scrollY + 8,
+        right: window.innerWidth - rect.right,
+      });
+    }
+  }, [open, triggerRef]);
 
   useEffect(() => {
     const handler = (e: MouseEvent) => {
@@ -39,7 +50,13 @@ export function NotificationsPanel({ open, onClose, triggerRef }: { open: boolea
 
   if (!open) return null;
   return (
-    <div className="fixed right-4 top-16 z-40 w-80" ref={containerRef} role="dialog" aria-label="Notifications">
+    <div
+      className="fixed z-40 w-80"
+      style={{ top: `${position.top}px`, right: `${position.right}px` }}
+      ref={containerRef}
+      role="dialog"
+      aria-label="Notifications"
+    >
       <Card className="overflow-hidden rounded-2xl border-0 bg-white shadow-xl ring-1 ring-slate-200">
         <CardHeader className="flex flex-row items-center justify-between p-4">
           <CardTitle className="text-base font-semibold">Notifications</CardTitle>

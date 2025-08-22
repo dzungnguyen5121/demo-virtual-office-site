@@ -2,8 +2,8 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
 import HomePage from './pages/HomePage'
 import Dashboard from './pages/Dashboard'
 import { Overview } from './pages/dashboard/Overview'
-import { CallsPage } from './pages/dashboard/CallsPage'
-import { DocsPage } from './pages/dashboard/DocsPage'
+import ManageCallsPage from './pages/dashboard/ManageCalls'
+import ManageDocumentsPage from './pages/dashboard/ManageDocuments'
 import { SettingsPage } from './pages/dashboard/SettingsPage'
 import LoginPage from './pages/LoginPage'
 import ProfilePage from './pages/ProfilePage'
@@ -29,15 +29,17 @@ function App() {
             }
           >
             <Route index element={<Overview />} />
-            <Route path="calls" element={<CallsPage />} />
-            <Route path="docs" element={<DocsPage />} />
+            <Route path="calls" element={<ManageCallsPage />} />
+            <Route path="docs" element={<ManageDocumentsPage />} />
             <Route path="settings" element={<SettingsPage />} />
           </Route>
           <Route
             path="/profile"
             element={
               <PrivateRoute>
-                <ProfilePage />
+                <Dashboard>
+                  <ProfilePage />
+                </Dashboard>
               </PrivateRoute>
             }
           />
