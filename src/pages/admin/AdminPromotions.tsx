@@ -215,7 +215,7 @@ export default function AdminPromotionsPage(){
           </div>
         </CardHeader>
         <CardContent>
-          <div className="overflow-x-hidden">
+          <div className="overflow-x-auto">
             <table className="w-full table-fixed text-left text-sm">
               <thead>
                 <tr className="border-b text-slate-600">

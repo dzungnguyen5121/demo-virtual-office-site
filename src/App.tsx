@@ -19,6 +19,7 @@ const AdminCommissionsPage = lazy(() => import('./pages/admin/AdminCommissions.t
 const AdminPromotionsPage = lazy(() => import('./pages/admin/AdminPromotions.tsx'));
 const AdminReminderPage = lazy(() => import('./pages/admin/AdminReminder.tsx'));
 const AdminSettingsPage = lazy(() => import('./pages/admin/AdminSettings.tsx'));
+const PaymentPageOld = lazy(() => import('./pages/client/dashboard/settings/payment_old'));
 
 
 import { AuthProvider } from './contexts/AuthContext'
@@ -77,6 +78,7 @@ function App() {
                 </PrivateRoute>
               }
             />
+            <Route path="/payment-old" element={<PaymentPageOld />} />
           </Routes>
         </Suspense>
       </AuthProvider>

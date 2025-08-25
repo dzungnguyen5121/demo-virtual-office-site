@@ -1,4 +1,5 @@
 import { useEffect, useMemo, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { MessageSquare } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -61,8 +62,7 @@ export default function AdminReminderPage(){
   useEffect(()=>setPage(1),[q]);
 
   const fmtDate = (iso:string)=> new Date(iso).toLocaleDateString();
-
-  const [chatFor, setChatFor] = useState<DueClient|null>(null);
+  const navigate = useNavigate();
 
   return (
     <>
@@ -104,7 +104,7 @@ export default function AdminReminderPage(){
                     <td className="px-3 py-2">{gbp(row.amount)}</td>
                     <td className="px-3 py-2">{row.manager}</td>
                     <td className="px-3 py-2">
-                      <Button size="sm" className="rounded-xl bg-[#F5B700] text-[#0A2647] hover:bg-[#e5aa00]" onClick={()=>setChatFor(row)}>
+                      <Button size="sm" className="rounded-xl bg-[#F5B700] text-[#0A2647] hover:bg-[#e5aa00]" onClick={()=>navigate('/admin/users')}>
                         <MessageSquare className="mr-1 h-4 w-4" /> Chat
                       </Button>
                     </td>
@@ -124,46 +124,6 @@ export default function AdminReminderPage(){
           </div>
         </CardContent>
       </Card>
-
-      {chatFor && (
-        <ChatModal row={chatFor} onClose={()=>setChatFor(null)} />
-      )}
     </>
-  );
-}
-
-function ChatModal({ row, onClose }:{ row: DueClient; onClose:()=>void; }){
-  const [msgs, setMsgs] = useState<Array<{from:'me'|'mgr'; text:string; at:string}>>([
-    { from:'mgr', text: 'Hi, I will reach out to the client shortly.', at: new Date().toLocaleTimeString() }
-  ]);
-  const [text, setText] = useState("");
-  const send = ()=>{
-    if(!text.trim()) return;
-    setMsgs(prev=> [...prev, { from:'me', text, at: new Date().toLocaleTimeString() }]);
-    setText("");
-  };
-  return (
-    <div className="fixed inset-0 z-50 grid place-items-center bg-black/50 p-4" role="dialog" aria-modal>
-      <div className="w-full max-w-lg overflow-hidden rounded-2xl border bg-white shadow-xl">
-        <div className="flex items-center justify-between border-b px-4 py-2">
-          <div className="text-sm font-semibold">{'Chat with'} {row.manager}</div>
-          <button onClick={onClose} className="rounded-md p-1 hover:bg-slate-100">✕</button>
-        </div>
-        <div className="h-72 overflow-y-auto p-3 text-sm">
-          {msgs.map((m,i)=> (
-            <div key={i} className={`mb-2 flex ${m.from==='me' ? 'justify-end' : 'justify-start'}`}>
-              <div className={`max-w-[75%] rounded-xl px-3 py-2 ${m.from==='me' ? 'bg-[#0A2647] text-white' : 'bg-slate-100 text-slate-800'}`}>
-                <div>{m.text}</div>
-                <div className="mt-1 text-[10px] opacity-70">{m.at}</div>
-              </div>
-            </div>
-          ))}
-        </div>
-        <div className="flex items-center gap-2 border-t p-2">
-          <input value={text} onChange={(e)=>setText(e.target.value)} placeholder={'Type a message…'} className="flex-1 rounded-lg border px-3 py-2 text-sm" />
-          <Button className="rounded-xl bg-[#F5B700] text-[#0A2647] hover:bg-[#e5aa00]" onClick={send}>{'Send'}</Button>
-        </div>
-      </div>
-    </div>
   );
 }

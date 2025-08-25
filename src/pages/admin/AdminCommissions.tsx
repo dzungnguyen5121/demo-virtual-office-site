@@ -75,6 +75,8 @@ export default function AdminCommissionsPage(){
   const [rows, setRows] = useState<CommissionRow[]>(()=>mockCommissions(20));
   const [q, setQ] = useState("");
   const [status, setStatus] = useState<CommissionStatus|"ALL">("ALL");
+  // sample referral code data for admin
+  const referralCode = "VO-ADMIN-REF-1234";
 
   useEffect(()=>{ if (typeof window !== 'undefined') runSmokeTests(); }, []);
 
@@ -124,6 +126,12 @@ export default function AdminCommissionsPage(){
         <p className="text-sm">Ensure payout bank details are verified before paying commissions.</p>
       </div>
       <p className="mb-4 text-sm text-slate-600">Track referrers, calculate payouts, and mark as paid.</p>
+
+      {/* Admin Referral Code */}
+      <div className="mb-4 rounded-2xl border bg-white p-4 shadow-sm ring-1 ring-slate-100">
+        <div className="text-sm text-slate-600">Referral code</div>
+        <div className="mt-1 font-mono text-lg font-semibold text-slate-900">{referralCode}</div>
+      </div>
 
       {/* Toolbar */}
       <div className="mb-4 flex flex-col gap-3 rounded-2xl border bg-white p-4 shadow-sm ring-1 ring-slate-100 md:flex-row md:items-center md:justify-between">

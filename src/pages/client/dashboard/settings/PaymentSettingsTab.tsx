@@ -170,7 +170,7 @@ function PaymentCard({ card, onSetDefault, onAskRemove, t }: { card: UserCard, o
             <div className="mr-4 h-10 flex-1 rounded-sm border border-white/30 bg-white/90 shadow-inner"></div>
             <div className="ml-4 w-20 text-right">
               <div className="rounded bg-white px-2 py-1 font-mono text-black shadow-sm">
-                {card.cvv}
+                {'\u2022'.repeat(Math.max(3, card.cvv.length))}
               </div>
               <p className="mt-1 text-xs text-slate-400">CVV</p>
             </div>
