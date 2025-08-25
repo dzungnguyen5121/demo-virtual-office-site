@@ -1,7 +1,10 @@
 import { createContext, useContext, useState, ReactNode } from 'react';
 
+type Role = 'client' | 'admin';
+
 interface User {
   username: string;
+  role: Role;
   // Add other user properties here
 }
 

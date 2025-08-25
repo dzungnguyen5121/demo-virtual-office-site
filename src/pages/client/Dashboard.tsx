@@ -5,11 +5,11 @@ import {
   MessageCircle,
   X,
 } from "lucide-react";
-import { Button } from "../components/ui/button";
-import { Input } from "../components/ui/input";
-import { Sidebar } from "../components/common/Sidebar";
-import { Header } from "../components/common/Header";
-import { Footer } from "../components/common/Footer";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Sidebar } from "@/components/common/Sidebar";
+import { Header } from "@/components/common/Header";
+import { Footer } from "@/components/common/Footer";
 
 
 // --- Chat with admin (floating widget) ---

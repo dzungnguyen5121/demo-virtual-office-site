@@ -1,5 +1,5 @@
-import { Button } from "../components/ui/button";
-import { Card, CardContent, CardHeader, CardTitle } from "../components/ui/card";
+import { Button } from "@/components/ui/button";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 
 export default function ProfilePage() {
   const user = { name: "John Doe", email: "JohnDoe@company.com", company: "ABC Company", dob: "1990-01-15", phone: "+44 20 7123 4567" };

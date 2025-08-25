@@ -2,8 +2,8 @@ import { useMemo, useState, useEffect } from "react";
 import {
   Gift,
 } from "lucide-react";
-import { Button } from "../../components/ui/button";
-import { Card, CardContent, CardHeader, CardTitle } from "../../components/ui/card";
+import { Button } from "@/components/ui/button";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 
 // Minimal i18n for this component
 const tDict = {

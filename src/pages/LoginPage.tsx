@@ -6,7 +6,7 @@ import { Button } from "../components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "../components/ui/card";
 import { Checkbox } from "../components/ui/checkbox";
 import { useAuth } from "../contexts/AuthContext";
-import demoUser from "../data/user.json";
+import users from "../data/user.json";
 
 const BRAND = {
   primary: "#0A2647", // Navy
@@ -15,18 +15,33 @@ const BRAND = {
   accentAlt: "#00A896", // Teal
 };
 
+const DASHBOARD_PATHS: { [key: string]: string } = {
+  client: "/dashboard",
+  admin: "/admin",
+};
+
 export default function LoginPage() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   const { login } = useAuth();
   const navigate = useNavigate();
+  const demoUser = users.find(u => u.role === 'client');
+  const adminUser = users.find(u => u.role === 'admin');
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    if (email === demoUser.username && password === demoUser.password) {
-      login({ username: email });
-      navigate("/dashboard");
+    setError("");
+
+    const foundUser = users.find(user => user.username === email && user.password === password);
+
+    if (foundUser) {
+      const userRole = foundUser.role as 'client' | 'admin';
+      login({ username: foundUser.username, role: userRole });
+      
+      const redirectPath = DASHBOARD_PATHS[userRole] || '/';
+      navigate(redirectPath);
+
     } else {
       setError("Invalid email or password");
     }
@@ -93,8 +108,20 @@ export default function LoginPage() {
             </CardDescription>
           </CardHeader>
           <CardContent>
-            <p className="text-sm"><strong>Email:</strong> {demoUser.username}</p>
-            <p className="text-sm"><strong>Password:</strong> {demoUser.password}</p>
+            {demoUser && (
+              <div className="mb-4">
+                <p className="font-semibold text-slate-800">Client Account:</p>
+                <p className="text-sm"><strong>Email:</strong> {demoUser.username}</p>
+                <p className="text-sm"><strong>Password:</strong> {demoUser.password}</p>
+              </div>
+            )}
+            {adminUser && (
+              <div>
+                <p className="font-semibold text-slate-800">Admin Account:</p>
+                <p className="text-sm"><strong>Email:</strong> {adminUser.username}</p>
+                <p className="text-sm"><strong>Password:</strong> {adminUser.password}</p>
+              </div>
+            )}
           </CardContent>
         </Card>
       </div>

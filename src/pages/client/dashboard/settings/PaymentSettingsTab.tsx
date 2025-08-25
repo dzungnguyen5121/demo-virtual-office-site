@@ -4,10 +4,10 @@ import {
   X,
   CheckCircle2,
 } from "lucide-react";
-import { Button } from "../../../components/ui/button";
-import { Input } from "../../../components/ui/input";
-import visaLogoUrl from "../../../assets/Visa_Brandmark_White_RGB_2021.svg";
-import chipUrl from "../../../assets/chip.png";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import visaLogoUrl from "@/assets/Visa_Brandmark_White_RGB_2021.svg";
+import chipUrl from "@/assets/chip.png";
 
 
 const tDict = {
@@ -50,8 +50,8 @@ export function PaymentSettingsTab() {
 
   useEffect(() => {
     setCards([
-      { id: "c1", brand: "Visa", number: "4242 4242 4242 4242", last4: "4242", holder: "Nguyen Van A", expiry: "12/28", cvv: "123", isDefault: true },
-      { id: "c2", brand: "Mastercard", number: "5522 8888 2222 8888", last4: "8888", holder: "Nguyen Van A", expiry: "06/27", cvv: "456", isDefault: false },
+      { id: "c1", brand: "Visa", number: "4242 4242 4242 4242", last4: "4242", holder: "Jason Statham", expiry: "12/28", cvv: "123", isDefault: true },
+      { id: "c2", brand: "Mastercard", number: "5522 8888 2222 8888", last4: "8888", holder: "Adam Levine", expiry: "06/27", cvv: "456", isDefault: false },
     ]);
   }, []);
 
