@@ -107,6 +107,7 @@ const pageTitles: { [key: string]: string } = {
   "/dashboard/calls": "Manage Calls",
   "/dashboard/docs": "Manage Documents",
   "/dashboard/settings": "Settings",
+  "/dashboard/billing": "Billing",
   "/profile": "Profile",
 };
 

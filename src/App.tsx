@@ -7,6 +7,7 @@ const Overview = lazy(() => import('./pages/dashboard/Overview').then(m => ({ de
 const ManageCallsPage = lazy(() => import('./pages/dashboard/ManageCalls'));
 const ManageDocumentsPage = lazy(() => import('./pages/dashboard/ManageDocuments'));
 const SettingsPage = lazy(() => import('./pages/dashboard/SettingsPage').then(m => ({ default: m.SettingsPage })));
+const BillingPage = lazy(() => import('./pages/dashboard/Billing'));
 const LoginPage = lazy(() => import('./pages/LoginPage'));
 const ProfilePage = lazy(() => import('./pages/ProfilePage'));
 
@@ -36,6 +37,7 @@ function App() {
               <Route path="calls" element={<ManageCallsPage />} />
               <Route path="docs" element={<ManageDocumentsPage />} />
               <Route path="settings" element={<SettingsPage />} />
+              <Route path="billing" element={<BillingPage />} />
             </Route>
             <Route
               path="/profile"

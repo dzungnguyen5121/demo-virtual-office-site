@@ -1,43 +1,41 @@
-import { Button } from "../../components/ui/button";
-import { Input } from "../../components/ui/input";
-import { Card, CardContent, CardHeader, CardTitle } from "../../components/ui/card";
+import { useState } from "react";
+import { GeneralSettingsTab } from "./settings/GeneralSettingsTab";
+import { PaymentSettingsTab } from "./settings/PaymentSettingsTab";
+
+type Tab = "general" | "payments";
 
 export function SettingsPage() {
+  const [activeTab, setActiveTab] = useState<Tab>("general");
+
   return (
     <div className="grid gap-6">
-      <Card className="rounded-2xl border-0 bg-white shadow-sm ring-1 ring-slate-100">
-        <CardHeader>
-          <CardTitle className="text-lg">Account</CardTitle>
-        </CardHeader>
-        <CardContent className="grid gap-4 sm:max-w-lg">
-          <label className="text-sm">
-            <span className="mb-1 block text-slate-700">Company name</span>
-            <Input defaultValue="Acme Holdings" className="rounded-xl" />
-          </label>
-          <label className="text-sm">
-            <span className="mb-1 block text-slate-700">Contact email</span>
-            <Input type="email" defaultValue="ops@acme.co" className="rounded-xl" />
-          </label>
-          <Button className="mt-2 w-fit rounded-xl bg-[#0A2647] text-white hover:bg-[#0b305f]">Save changes</Button>
-        </CardContent>
-      </Card>
+      <div className="flex border-b">
+        <button
+          onClick={() => setActiveTab("general")}
+          className={`px-4 py-2 text-sm font-medium ${
+            activeTab === "general"
+              ? "border-b-2 border-[#0A2647] text-[#0A2647]"
+              : "text-slate-600 hover:text-slate-800"
+          }`}
+        >
+          General
+        </button>
+        <button
+          onClick={() => setActiveTab("payments")}
+          className={`px-4 py-2 text-sm font-medium ${
+            activeTab === "payments"
+              ? "border-b-2 border-[#0A2647] text-[#0A2647]"
+              : "text-slate-600 hover:text-slate-800"
+          }`}
+        >
+          Payments
+        </button>
+      </div>
 
-      <Card className="rounded-2xl border-0 bg-white shadow-sm ring-1 ring-slate-100">
-        <CardHeader>
-          <CardTitle className="text-lg">Notifications</CardTitle>
-        </CardHeader>
-        <CardContent className="grid gap-2 text-sm text-slate-700">
-          <label className="flex items-center gap-2">
-            <input type="checkbox" defaultChecked className="h-4 w-4 rounded border-slate-300 text-[#0A2647]" /> Email alerts for new mail
-          </label>
-          <label className="flex items-center gap-2">
-            <input type="checkbox" defaultChecked className="h-4 w-4 rounded border-slate-300 text-[#0A2647]" /> Push notifications for calls
-          </label>
-          <label className="flex items-center gap-2">
-            <input type="checkbox" className="h-4 w-4 rounded border-slate-300 text-[#0A2647]" /> Promotions & product updates
-          </label>
-        </CardContent>
-      </Card>
+      <div>
+        {activeTab === "general" && <GeneralSettingsTab />}
+        {activeTab === "payments" && <PaymentSettingsTab />}
+      </div>
     </div>
   );
 }
