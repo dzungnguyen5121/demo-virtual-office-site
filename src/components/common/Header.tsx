@@ -1,21 +1,15 @@
 import { useState, useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import {
-  Building2,
   Bell,
   ChevronDown,
   User,
   LogOut,
 } from "lucide-react";
-import { Badge } from "../ui/badge";
 import { Avatar, AvatarImage, AvatarFallback } from "../ui/avatar";
 import { useAuth } from "../../contexts/AuthContext";
 import { NotificationsPanel } from "./NotificationsPanel";
 import profileDemo from "../../assets/profile-demo.svg";
-
-const BRAND = {
-  primary: "#0A2647",
-};
 
 export function Header({ title }: { title: string }) {
   const { logout } = useAuth();
